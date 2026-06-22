@@ -33,6 +33,12 @@
                 <p>Mantenha o cadastro atualizado de todos os seus animais.</p>
                 <a href="vacas.php" class="btn-primary">Acessar</a>
             </div>
+
+            <div class="card">
+                <h2>Gerenciar Produtores</h2>
+                <p>Mantenha o cadastro atualizado de todos os seus produtores.</p>
+                <a href="produtores.php" class="btn-primary">Acessar</a>
+            </div>
         </div>
     </div>
 </body>
