@@ -206,6 +206,49 @@ button:active {
     transform: translateY(0);
 }
 
+/* Action buttons inside table rows (edit/delete) */
+.data-table td a {
+    margin-right: 8px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.95em;
+    display: inline-block;
+    text-decoration: none;
+}
+
+
+.data-table td a.btn-primary {
+    background: linear-gradient(135deg, #4CAF50 0%, #2E7D32 100%);
+    box-shadow: 0 4px 12px rgba(46, 125, 50, 0.18);
+    color: #fff;
+}
+
+.data-table td a.btn-primary:hover {
+    background: linear-gradient(135deg, #43A047 0%, #1B5E20 100%);
+    transform: translateY(-2px);
+}
+
+.btn-danger {
+    background: linear-gradient(135deg, #e53935 0%, #b71c1c 100%);
+    color: #fff;
+    padding: 8px 12px;
+    border-radius: 8px;
+    text-decoration: none;
+    display: inline-block;
+    box-shadow: 0 4px 12px rgba(183, 28, 28, 0.18);
+}
+
+.btn-danger:hover {
+    background: linear-gradient(135deg, #d32f2f 0%, #8e0b0b 100%);
+    transform: translateY(-2px);
+}
+
+.data-table td:last-child {
+    white-space: nowrap;
+    width: 180px;
+}
+
 
 /* Tabelas */
 .table-container {

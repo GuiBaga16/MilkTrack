@@ -13,17 +13,53 @@ class VacasController
     }
 
     // Ação de cadastro: lê o POST, salva no banco e redireciona
-    public function salvar()
+    public function salvar($dados = null)
     {
-        // Cria o objeto com os dados enviados pelo formulário via POST
+        if ($dados === null) {
+            $dados = $_POST;
+        }
+
         $vaca = new Vacas(
-            $_POST['nome'],         // nome da vaca
-            $_POST['raca'],           // raça da vaca
-            $_POST['data_nascimento']  // data de nascimento da vaca
+            $dados['nome'] ?? null,
+            $dados['raca'] ?? null,
+            $dados['data_nascimento'] ?? null
         );
 
         $dao = new VacasDao(); // instancia o DAO
         $dao->salvar($vaca);  // salva o objeto no banco
 
+        return ['success' => true];
+    }
+
+    public function buscarPorId($id)
+    {
+        $dao = new VacasDao();
+        return $dao->buscarPorId($id);
+    }
+
+    public function atualizar($id, $dados = null)
+    {
+        if ($dados === null) {
+            $dados = $_POST;
+        }
+
+        $vaca = new Vacas(
+            $dados['nome'] ?? null,
+            $dados['raca'] ?? null,
+            $dados['data_nascimento'] ?? null,
+            $id
+        );
+
+        $dao = new VacasDao();
+        $dao->editar($vaca);
+
+        return ['success' => true];
+    }
+
+    public function deletar($id)
+    {
+        $dao = new VacasDao();
+        $dao->deletar($id);
+        return ['success' => true];
     }
 }

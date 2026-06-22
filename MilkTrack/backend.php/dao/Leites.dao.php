@@ -44,6 +44,24 @@ class LeitesDao
         return $leites;
     }
 
+    public function buscarPorId($id)
+    {
+        $sql = "SELECT * FROM $this->tabela WHERE id = ?";
+        $stmt = $this->connection->prepare($sql);
+        $stmt->execute([$id]);
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if (!$row)
+            return null;
+
+        return new Leites(
+            $row['quantidade'],
+            $row['data_coleta'],
+            $row['qualidade'],
+            $row['id']
+        );
+    }
+
     public function editar(Leites $leite)
     {
         $sql = "UPDATE $this->tabela SET quantidade = ?, data_coleta = ?, qualidade = ? WHERE id = ?";

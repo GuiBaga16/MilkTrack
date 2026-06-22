@@ -13,6 +13,7 @@
         <img src="../styles/logo_MilkTrack.png" alt="Logo MilkTrack" class="logo">
         <li><a href="leites.php">Leite</a></li>
         <li><a href="vacas.php">Vaca</a></li>
+        <li><a href="produtores.php">Produtor</a></li>
     </ul>
 
     <div class="container">

@@ -43,4 +43,43 @@ class VacasDao
 
         return $vacas;
     }
+
+    public function buscarPorId($id)
+    {
+        $sql = "SELECT * FROM $this->tabela WHERE id = ?";
+        $stmt = $this->connection->prepare($sql);
+        $stmt->execute([$id]);
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if (!$row)
+            return null;
+
+        return new Vacas(
+            $row['nome'],
+            $row['raca'],
+            $row['data_nascimento'],
+            $row['id']
+        );
+    }
+
+    public function editar(Vacas $vaca)
+    {
+        $sql = "UPDATE $this->tabela SET nome = ?, raca = ?, data_nascimento = ? WHERE id = ?";
+        $stmt = $this->connection->prepare($sql);
+
+        $stmt->execute([
+            $vaca->getNome(),
+            $vaca->getRaca(),
+            $vaca->getDataNascimento(),
+            $vaca->getId()
+        ]);
+    }
+
+    public function deletar($id)
+    {
+        $sql = "DELETE FROM $this->tabela WHERE id = ?";
+        $stmt = $this->connection->prepare($sql);
+
+        $stmt->execute([$id]);
+    }
 }

@@ -7,11 +7,11 @@ class Database
 
     public function __construct()
     {
-        $host = Env::get('DB_HOST', 'localhost');
-        $porta = Env::get('DB_PORT', '4777');
-        $database = Env::get('DB_NAME', 'milkTrack');
-        $usuario = Env::get('DB_USER', 'postgres');
-        $senha = Env::get('DB_PASS', 'postgres');
+        $host = getenv('DB_HOST') ?: 'localhost';
+        $porta = getenv('DB_PORT') ?: '4777';
+        $database = getenv('DB_NAME') ?: 'milkTrack';
+        $usuario = getenv('DB_USER') ?: 'postgres';
+        $senha = getenv('DB_PASS') ?: 'postgres';
 
         $dsn = "pgsql:host=$host;port=$porta;dbname=$database";
 

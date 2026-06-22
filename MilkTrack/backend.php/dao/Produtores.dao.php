@@ -43,6 +43,24 @@ class ProdutoresDao
         return $produtores;
     }
 
+    public function buscarPorId($id)
+    {
+        $sql = "SELECT * FROM $this->tabela WHERE id = ?";
+        $stmt = $this->connection->prepare($sql);
+        $stmt->execute([$id]);
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if (!$row)
+            return null;
+
+        return new Produtores(
+            $row['nome'],
+            $row['cidade'],
+            $row['telefone'],
+            $row['id']
+        );
+    }
+
     public function editar(Produtores $produtor)
     {
         $sql = "UPDATE $this->tabela SET nome = ?, cidade = ?, telefone = ? WHERE id = ?";

@@ -1,9 +1,30 @@
 <?php require_once __DIR__ . '/../../backend.php/controllers/Leites.controller.php';
 $controller = new LeitesController();
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $controller->salvar();
+// Deletar via GET (confirmação feita no link)
+if (isset($_GET['action']) && $_GET['action'] === 'delete' && isset($_GET['id'])) {
+    $controller->deletar((int) $_GET['id']);
+    header('Location: leites.php');
+    exit;
 }
+
+// Preparar edição
+$editing = null;
+if (isset($_GET['action']) && $_GET['action'] === 'edit' && isset($_GET['id'])) {
+    $editing = $controller->buscarPorId((int) $_GET['id']);
+}
+
+// Salvar ou atualizar via POST
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if (!empty($_POST['id'])) {
+        $controller->atualizar((int) $_POST['id']);
+    } else {
+        $controller->salvar();
+    }
+    header('Location: leites.php');
+    exit;
+}
+
 $leite = $controller->listar();
 
 ?>
@@ -23,6 +44,7 @@ $leite = $controller->listar();
         <img src="../styles/logo_MilkTrack.png" alt="Logo MilkTrack" class="logo">
         <li><a href="leites.php">Leite</a></li>
         <li><a href="vacas.php">Vaca</a></li>
+        <li><a href="produtores.php">Produtor</a></li>
         <li style="margin-left: auto;"><a href="index.php">🏠 Início</a></li>
     </ul>
 
@@ -32,7 +54,9 @@ $leite = $controller->listar();
         <form method="POST" action="" class="form-container">
             <div class="form-group">
                 <label for="quantidade">Quantidade (em litros)</label>
-                <input type="text" id="quantidade" name="quantidade" placeholder="Ex: 50.5" required>
+                <input type="text" id="quantidade" name="quantidade" placeholder="Ex: 50.5" required
+                    value="<?= $editing ? $editing->getQuantidade() : '' ?>">
+                <input type="hidden" name="id" value="<?= $editing ? $editing->getId() : '' ?>">
             </div>
 
             <div class="form-group">
@@ -46,8 +70,12 @@ $leite = $controller->listar();
             </div>
 
             <div class="form-actions">
-                <button type="submit" class="btn-primary">Salvar</button>
-                <a href="index.php" class="btn-secondary">Voltar</a>
+                <button type="submit" class="btn-primary"><?= $editing ? 'Atualizar' : 'Salvar' ?></button>
+                <?php if ($editing): ?>
+                    <a href="leites.php" class="btn-secondary">Cancelar</a>
+                <?php else: ?>
+                    <a href="index.php" class="btn-secondary">Voltar</a>
+                <?php endif; ?>
             </div>
         </form>
 
@@ -59,6 +87,7 @@ $leite = $controller->listar();
                         <th>Quantidade</th>
                         <th>Data de Coleta</th>
                         <th>Qualidade</th>
+                        <th>Ações</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -68,6 +97,11 @@ $leite = $controller->listar();
                             <td><?= $item->getQuantidade() ?> L</td>
                             <td><?= $item->getDataColeta() ?></td>
                             <td><?= $item->getQualidade() ?></td>
+                            <td>
+                                <a class="btn-primary" href="?action=edit&id=<?= $item->getId() ?>">Editar</a>
+                                <a class="btn-danger" href="?action=delete&id=<?= $item->getId() ?>"
+                                    onclick="return confirm('Confirma exclusão deste registro?')">Excluir</a>
+                            </td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>

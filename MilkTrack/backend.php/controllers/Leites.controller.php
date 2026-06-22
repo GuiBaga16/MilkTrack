@@ -12,17 +12,54 @@ class LeitesController
     }
 
     // Ação de cadastro: lê o POST, salva no banco e redireciona
-    public function salvar()
+    public function salvar($dados = null)
     {
-        // Cria o objeto com os dados enviados pelo formulário via POST
+        // Suporta chamada via form ($_POST) ou via API ($dados)
+        if ($dados === null) {
+            $dados = $_POST;
+        }
+
         $leite = new Leites(
-            $_POST['quantidade'],     // quantidade de leite
-            $_POST['data_coleta'],    // data de coleta
-            $_POST['qualidade']        // qualidade do leite
+            $dados['quantidade'] ?? null,
+            $dados['data_coleta'] ?? null,
+            $dados['qualidade'] ?? null
         );
 
         $dao = new LeitesDao(); // instancia o DAO
         $dao->salvar($leite);  // salva o objeto no banco
 
+        return ['success' => true];
+    }
+
+    public function buscarPorId($id)
+    {
+        $dao = new LeitesDao();
+        return $dao->buscarPorId($id);
+    }
+
+    public function atualizar($id, $dados = null)
+    {
+        if ($dados === null) {
+            $dados = $_POST;
+        }
+
+        $leite = new Leites(
+            $dados['quantidade'] ?? null,
+            $dados['data_coleta'] ?? null,
+            $dados['qualidade'] ?? null,
+            $id
+        );
+
+        $dao = new LeitesDao();
+        $dao->editar($leite);
+
+        return ['success' => true];
+    }
+
+    public function deletar($id)
+    {
+        $dao = new LeitesDao();
+        $dao->deletar($id);
+        return ['success' => true];
     }
 }
