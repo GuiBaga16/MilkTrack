@@ -21,7 +21,7 @@ if ($uri === '/docs') {
     exit;
 }
 
-require_once __DIR__ . '/controller/LeitesController.php';
+require_once __DIR__ . '/controllers/Leites.controller.php';
 
 $controller = new LeitesController();
 

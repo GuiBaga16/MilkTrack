@@ -1,10 +1,10 @@
-<?php require_once __DIR__ . '/../../backend.php/controllers/Vacas.controller.php';
-$controller = new VacasController();
+<?php require_once __DIR__ . '/../../backend.php/controllers/Produtores.controller.php';
+$controller = new ProdutoresController();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $controller->salvar();
 }
-$vacas = $controller->listar();
+$produtores = $controller->listar();
 
 ?>
 
@@ -15,7 +15,7 @@ $vacas = $controller->listar();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../styles/style.css">
-    <title>Gerenciamento de Vacas - MilkTrack</title>
+    <title>Gerenciamento de Produtores - MilkTrack</title>
 </head>
 
 <body>
@@ -27,22 +27,22 @@ $vacas = $controller->listar();
     </ul>
 
     <div class="container">
-        <h1>Gerenciamento de Vacas</h1>
+        <h1>Gerenciamento de Produtores</h1>
 
         <form method="POST" action="" class="form-container">
             <div class="form-group">
-                <label for="nome">Nome da Vaca</label>
+                <label for="nome">Nome</label>
                 <input type="text" id="nome" name="nome" placeholder="Digite o nome" required>
             </div>
 
             <div class="form-group">
-                <label for="raca">Raça</label>
-                <input type="text" id="raca" name="raca" placeholder="Ex: Holandesa, Jersey" required>
+                <label for="cidade">Cidade</label>
+                <input type="text" id="cidade" name="cidade" placeholder="Digite a cidade" required>
             </div>
 
             <div class="form-group">
-                <label for="data_nascimento">Data de Nascimento</label>
-                <input type="date" id="data_nascimento" name="data_nascimento" required>
+                <label for="telefone">Telefone</label>
+                <input type="text" id="telefone" name="telefone" placeholder="(xx) xxxx-xxxx" required>
             </div>
 
             <div class="form-actions">
@@ -57,17 +57,25 @@ $vacas = $controller->listar();
                     <tr>
                         <th>ID</th>
                         <th>Nome</th>
-                        <th>Raça</th>
-                        <th>Data de Nascimento</th>
+                        <th>Cidade</th>
+                        <th>Telefone</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($vacas as $vaca): ?>
+                    <?php foreach ($produtores as $p): ?>
                         <tr>
-                            <td><?= $vaca->getId() ?></td>
-                            <td><?= $vaca->getNome() ?></td>
-                            <td><?= $vaca->getRaca() ?></td>
-                            <td><?= $vaca->getDataNascimento() ?></td>
+                            <td>
+                                <?= $p->getId() ?>
+                            </td>
+                            <td>
+                                <?= $p->getNome() ?>
+                            </td>
+                            <td>
+                                <?= $p->getCidade() ?>
+                            </td>
+                            <td>
+                                <?= $p->getTelefone() ?>
+                            </td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
@@ -75,3 +83,5 @@ $vacas = $controller->listar();
         </div>
     </div>
 </body>
+
+</html>

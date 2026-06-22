@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '/../config/Database.php';
+require_once __DIR__ . '/../Database.php';
 require_once __DIR__ . '/../model/Leites.model.php';
 
 class LeitesDao
@@ -42,5 +42,26 @@ class LeitesDao
         }
 
         return $leites;
+    }
+
+    public function editar(Leites $leite)
+    {
+        $sql = "UPDATE $this->tabela SET quantidade = ?, data_coleta = ?, qualidade = ? WHERE id = ?";
+        $stmt = $this->connection->prepare($sql);
+
+        $stmt->execute([
+            $leite->getQuantidade(),
+            $leite->getDataColeta(),
+            $leite->getQualidade(),
+            $leite->getId()
+        ]);
+    }
+
+    public function deletar($id)
+    {
+        $sql = "DELETE FROM $this->tabela WHERE id = ?";
+        $stmt = $this->connection->prepare($sql);
+
+        $stmt->execute([$id]);
     }
 }

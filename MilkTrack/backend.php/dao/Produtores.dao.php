@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '/../config/Database.php';
+require_once __DIR__ . '/../Database.php';
 require_once __DIR__ . '/../model/Produtores.model.php';
 
 class ProdutoresDao
@@ -41,5 +41,26 @@ class ProdutoresDao
         }
 
         return $produtores;
+    }
+
+    public function editar(Produtores $produtor)
+    {
+        $sql = "UPDATE $this->tabela SET nome = ?, cidade = ?, telefone = ? WHERE id = ?";
+        $stmt = $this->connection->prepare($sql);
+
+        $stmt->execute([
+            $produtor->getNome(),
+            $produtor->getCidade(),
+            $produtor->getTelefone(),
+            $produtor->getId()
+        ]);
+    }
+
+    public function deletar($id)
+    {
+        $sql = "DELETE FROM $this->tabela WHERE id = ?";
+        $stmt = $this->connection->prepare($sql);
+
+        $stmt->execute([$id]);
     }
 }

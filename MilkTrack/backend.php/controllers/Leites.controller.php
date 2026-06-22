@@ -1,5 +1,4 @@
 <?php
-
 require_once __DIR__ . '/../dao/Leites.dao.php'; // carrega o DAO (que já carrega Database e Model)
 
 // Controller: orquestra a comunicação entre o DAO e as Views
