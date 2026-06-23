@@ -22,7 +22,11 @@ class ProdutoresController
         $produtor = new Produtores(
             $dados['nome'] ?? null,
             $dados['cidade'] ?? null,
-            $dados['telefone'] ?? null
+            $dados['telefone'] ?? null,
+            $dados['cep'] ?? null,
+            $dados['rua'] ?? null,
+            $dados['bairro'] ?? null,
+            $dados['uf'] ?? null
         );
 
         $dao = new ProdutoresDao(); // instancia o DAO
@@ -47,6 +51,10 @@ class ProdutoresController
             $dados['nome'] ?? null,
             $dados['cidade'] ?? null,
             $dados['telefone'] ?? null,
+            $dados['cep'] ?? null,
+            $dados['rua'] ?? null,
+            $dados['bairro'] ?? null,
+            $dados['uf'] ?? null,
             $id
         );
 

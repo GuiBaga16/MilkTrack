@@ -13,8 +13,12 @@ CREATE TABLE vacas (
 );
 
 CREATE TABLE produtores (
-  id SERIAL PRIMARY KEY,
-  nome VARCHAR(255) NOT NULL,
-  cidade VARCHAR(255) NOT NULL,
-  telefone VARCHAR(20) NOT NULL
+    id SERIAL PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    telefone VARCHAR(20),
+    cep VARCHAR(9),
+    rua VARCHAR(150),
+    bairro VARCHAR(100),
+    cidade VARCHAR(100),
+    uf VARCHAR(2)
 );

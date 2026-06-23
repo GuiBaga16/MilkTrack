@@ -16,10 +16,18 @@ class ProdutoresDao
 
     public function salvar(Produtores $produtor)
     {
-        $sql = "INSERT INTO $this->tabela (nome, cidade, telefone) VALUES (?, ?, ?)";
+        $sql = "INSERT INTO $this->tabela (nome, cidade, telefone, cep, rua, bairro, uf) VALUES (?, ?, ?, ?, ?, ?, ?)";
         $stmt = $this->connection->prepare($sql);
 
-        $stmt->execute([$produtor->getNome(), $produtor->getCidade(), $produtor->getTelefone()]);
+        $stmt->execute([
+            $produtor->getNome(),
+            $produtor->getCidade(),
+            $produtor->getTelefone(),
+            $produtor->getCep(),
+            $produtor->getRua(),
+            $produtor->getBairro(),
+            $produtor->getUf()
+        ]);
     }
 
 
@@ -36,7 +44,12 @@ class ProdutoresDao
             $produtores[] = new Produtores(
                 $row['nome'],
                 $row['cidade'],
-                $row['telefone']
+                $row['telefone'],
+                $row['cep'],
+                $row['rua'],
+                $row['bairro'],
+                $row['uf'],
+                $row['id']
             );
         }
 
@@ -57,19 +70,27 @@ class ProdutoresDao
             $row['nome'],
             $row['cidade'],
             $row['telefone'],
+            $row['cep'],
+            $row['rua'],
+            $row['bairro'],
+            $row['uf'],
             $row['id']
         );
     }
 
     public function editar(Produtores $produtor)
     {
-        $sql = "UPDATE $this->tabela SET nome = ?, cidade = ?, telefone = ? WHERE id = ?";
+        $sql = "UPDATE $this->tabela SET nome = ?, cidade = ?, telefone = ?, cep = ?, rua = ?, bairro = ?, uf = ? WHERE id = ?";
         $stmt = $this->connection->prepare($sql);
 
         $stmt->execute([
             $produtor->getNome(),
             $produtor->getCidade(),
             $produtor->getTelefone(),
+            $produtor->getCep(),
+            $produtor->getRua(),
+            $produtor->getBairro(),
+            $produtor->getUf(),
             $produtor->getId()
         ]);
     }
