@@ -36,20 +36,6 @@
                 <textarea id="mensagem" rows="4" required></textarea>
             </div>
 
-            <div class="form-actions">
-
-                <button class="btn-primary">
-                    Salvar
-                </button>
-
-                <button type="button" id="btnCancelar" class="btn-secondary" style="display:none">
-
-                    Cancelar
-
-                </button>
-
-            </div>
-
         </form>
 
         <br>
@@ -62,7 +48,6 @@
                     <th>ID</th>
                     <th>Título</th>
                     <th>Mensagem</th>
-                    <th>Ações</th>
                 </tr>
 
             </thead>
@@ -95,11 +80,6 @@
                 <td>${aviso.id}</td>
                 <td>${aviso.titulo}</td>
                 <td>${aviso.mensagem}</td>
-
-                <td>
-                    <button onclick="editar('${aviso.id}')">Editar</button>
-                    <button onclick="deletar('${aviso.id}')">Excluir</button>
-                </td>
 
             </tr>
         `;
